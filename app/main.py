@@ -3,8 +3,8 @@ import sys
 
 def main():
     # Wait for user input
-    flag=1
-    while(flag):
+    commands=['echo','exit','type']
+    while(True):
         sys.stdout.write("$ ")
         command=input()
         match command.split():
@@ -12,7 +12,11 @@ def main():
                 sys.exit(0)
             case ['echo',*args]:
                 print(*args)
-            
+            case ['type',arg]:
+                if arg in commands:
+                    print(f"{arg} is a shell builtin")
+                else:
+                    print(f"{arg}: not found")
             case _:
                 print(f"{command}: command not found")
 
