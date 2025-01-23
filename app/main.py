@@ -1,5 +1,6 @@
 import sys
 import os
+import subprocess
 
 def main():
     # Wait for user input
@@ -9,13 +10,14 @@ def main():
         sys.stdout.write("$ ")
         flag=0
         command=input()
-        if not command:
+        if not command.strip():
             continue
-        match command.split():
+        parts=command.split()
+        match parts:
             case ['exit','0']:
                 sys.exit(0)
             case ['echo',*args]:
-                print(*args)
+                print(' '.join(args))
             case ['type',arg]:
                 if arg in commands:
                     print(f"{arg} is a shell builtin")
@@ -32,10 +34,13 @@ def main():
                         print(f"{arg}: not found")
             case [comm,*args]:
                 for path in paths:
-                    if os.path.exists(f"{path}/{comm}"):
-                        os.system(command)
+                    execpath=f"{path}/{comm}"
+                    if os.path.exists(execpath):
+                        result=subprocess.run([comm] + args , executable= execpath)
+                        flag=1
                         break
-                print(f"{command}: command not found")
+                if flag==0:
+                    print(f"{comm}: command not found")
 
 
 if __name__ == "__main__":
