@@ -36,6 +36,7 @@ def main():
             case ['pwd']:
                 print(os.getcwd())
             case ['cd',directory]:
+                directory=os.path.expanduser(directory)
                 try:
                     os.chdir(directory)
                 except OSError:
