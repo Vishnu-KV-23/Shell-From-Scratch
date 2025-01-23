@@ -4,7 +4,7 @@ import subprocess
 
 def main():
     # Wait for user input
-    commands=['echo','exit','type']
+    commands=['echo','exit','type','pwd']
     paths=os.getenv("PATH").split(":")
     while(True):
         sys.stdout.write("$ ")
@@ -26,12 +26,15 @@ def main():
                     for path in paths:
                         if os.path.exists(f"{path}/{arg}"):
                             flag=1
+                            #print(f"{arg} is a shell builtin")
                             print(f"{arg} is {path}/{arg}")
                             break
                 
                     
                     if (flag==0):
                         print(f"{arg}: not found")
+            case ['pwd']:
+                print(os.getcwd())
             case [comm,*args]:
                 for path in paths:
                     execpath=f"{path}/{comm}"
