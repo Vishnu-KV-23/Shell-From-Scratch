@@ -4,6 +4,7 @@ import os
 def main():
     # Wait for user input
     commands=['echo','exit','type']
+    paths=os.getenv("PATH").split(":")
     while(True):
         sys.stdout.write("$ ")
         flag=0
@@ -19,7 +20,7 @@ def main():
                 if arg in commands:
                     print(f"{arg} is a shell builtin")
                 else:
-                    paths=os.getenv("PATH").split(":")
+                    
                     for path in paths:
                         if os.path.exists(f"{path}/{arg}"):
                             flag=1
@@ -29,7 +30,11 @@ def main():
                     
                     if (flag==0):
                         print(f"{arg}: not found")
-            case _:
+            case [comm,*args]:
+                for path in paths:
+                    if os.path.exists(f"{path}/{comm}"):
+                        os.system(command)
+                        break
                 print(f"{command}: command not found")
 
 
