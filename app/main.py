@@ -4,7 +4,7 @@ import subprocess
 
 def main():
     # Wait for user input
-    commands=['echo','exit','type','pwd']
+    commands=['echo','exit','type','pwd','cd']
     paths=os.getenv("PATH").split(":")
     while(True):
         sys.stdout.write("$ ")
@@ -35,6 +35,13 @@ def main():
                         print(f"{arg}: not found")
             case ['pwd']:
                 print(os.getcwd())
+            case ['cd',directory]:
+                try:
+                    os.chdir(directory)
+                except OSError:
+                    print(f"cd: {directory}: No such file or directory")
+
+
             case [comm,*args]:
                 for path in paths:
                     execpath=f"{path}/{comm}"
