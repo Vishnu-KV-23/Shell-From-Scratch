@@ -76,6 +76,6 @@ def main():
                 if flag == 0:
                     # When the command is not found in our list or the OS binaries
                     print(f"{comm}: command not found")
-
+#added all the changes in quoting
 if __name__ == "__main__":
     main()
