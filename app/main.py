@@ -63,6 +63,7 @@ def main():
                 if flag==0:
                     #when the command is not found in our list or the os binaries
                     print(f"{comm}: command not found")
+#finished navigation entirely            
 
 
 if __name__ == "__main__":
